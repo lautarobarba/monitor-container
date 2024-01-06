@@ -1,0 +1,6 @@
+# Variables de entorno
+.env
+
+# Volumenes de docker
+prometheus/data
+grafana/data
