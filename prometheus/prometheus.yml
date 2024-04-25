@@ -18,4 +18,4 @@ scrape_configs:
 
   - job_name: postgres
     static_configs:
-      - targets: ["host.docker.internals:6001"]
+      - targets: ["host.docker.internal:7001"]
