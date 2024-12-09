@@ -1,0 +1,27 @@
+global:
+  # The default SMTP From header field.
+  smtp_from: "alertmanager@example.org"
+  # The default SMTP smarthost used for sending emails, including port number.
+  # Port number usually is 25, or 587 for SMTP over TLS (sometimes referred to as STARTTLS).
+  # Example: smtp.example.org:587
+  smtp_smarthost: sandbox.smtp.mailtrap.io:2525
+  # SMTP Auth using CRAM-MD5, LOGIN and PLAIN. If empty, Alertmanager doesn't authenticate to the SMTP server.
+  smtp_auth_username: 58c5be201f37ae
+  # SMTP Auth using LOGIN and PLAIN.
+  smtp_auth_password: e5cc799e4e5f52
+  # The default SMTP TLS requirement.
+  # Note that Go does not support unencrypted connections to remote SMTP endpoints.
+  smtp_require_tls: false
+
+# The root route on which each incoming alert enters.
+route:
+  receiver: "default-receiver"
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  group_by: [cluster, alertname]
+
+receivers:
+  - name: "default-receiver"
+    email_configs:
+      - to: "team1@example.org, team2@example.org"

@@ -2,5 +2,8 @@
 .env
 
 # Volumenes de docker
-prometheus/data
-grafana/data
+grafana/*
+prometheus/*
+!prometheus.yml.example
+alertmanager/*
+!alertmanager.yml.example

@@ -1,6 +1,18 @@
 version: "3.8"
 name: monitor
 services:
+  alertmanager:
+    container_name: alertmanager
+    image: prom/alertmanager:v0.26.0
+    env_file: .env
+    restart: always
+    ports:
+      - ${ALERTMANAGER_PORT}:9093
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
   prometheus:
     container_name: prometheus
     image: prom/prometheus:v2.48.0
