@@ -1,14 +1,14 @@
 name: monitor
 services:
-  alertmanager:
-    container_name: alertmanager
-    image: prom/alertmanager:v0.26.0
-    env_file: .env
+  grafana:
+    container_name: grafana
+    image: grafana/grafana-oss:10.0.10
+    user: root
     restart: always
     ports:
-      - ${ALERTMANAGER_PORT}:9093
+      - ${GRAFANA_PORT}:3000
     volumes:
-      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ./grafana/data:/var/lib/grafana
     extra_hosts:
       - host.docker.internal:host-gateway
 
@@ -21,32 +21,32 @@ services:
     ports:
       - ${PROMETHEUS_PORT}:9090
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/data:/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     extra_hosts:
       - host.docker.internal:host-gateway
 
-  blackbox:
-    container_name: blackbox
-    image: prom/blackbox-exporter:v0.25.0
-    user: root
-    env_file: .env
-    restart: always
-    ports:
-      - ${BLACKBOX_PORT}:9115
-    volumes:
-      - ./blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml
-    extra_hosts:
-      - host.docker.internal:host-gateway
+  # alertmanager:s
+  #   container_name: alertmanager
+  #   image: prom/alertmanager:v0.26.0
+  #   env_file: .env
+  #   restart: always
+  #   ports:
+  #     - ${ALERTMANAGER_PORT}:9093
+  #   volumes:
+  #     - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+  #   extra_hosts:
+  #     - host.docker.internal:host-gateway
 
-  grafana:
-    container_name: grafana
-    image: grafana/grafana-oss:10.0.10
-    user: root
-    restart: always
-    ports:
-      - ${GRAFANA_PORT}:3000
-    volumes:
-      - ./grafana/data:/var/lib/grafana
-    extra_hosts:
-      - host.docker.internal:host-gateway
+  # blackbox:
+  #   container_name: blackbox
+  #   image: prom/blackbox-exporter:v0.25.0
+  #   user: root
+  #   env_file: .env
+  #   restart: always
+  #   ports:
+  #     - ${BLACKBOX_PORT}:9115
+  #   volumes:
+  #     - ./blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml
+  #   extra_hosts:
+  #     - host.docker.internal:host-gateway
