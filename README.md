@@ -52,7 +52,14 @@ Edita el archivo de configuración de Prometheus (prometheus.yml) y agregar el j
 
 ```yml
 scrape_configs:
-  - job_name: "node_exporter"
+  - job_name: "node"
     static_configs:
       - targets: ["<ip_del_servidor>:9100"]
 ```
+
+### Tablero para grafana
+
+Sugeridos:
+
+1. https://grafana.com/grafana/dashboards/1860-node-exporter-full/
+2. https://grafana.com/grafana/dashboards/13978-node-exporter-quickstart-and-dashboard/
