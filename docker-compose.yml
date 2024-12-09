@@ -1,4 +1,3 @@
-version: "3.8"
 name: monitor
 services:
   alertmanager:
@@ -24,6 +23,19 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/data:/prometheus
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  blackbox:
+    container_name: blackbox
+    image: prom/blackbox-exporter:v0.25.0
+    user: root
+    env_file: .env
+    restart: always
+    ports:
+      - ${BLACKBOX_PORT}:9115
+    volumes:
+      - ./blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml
     extra_hosts:
       - host.docker.internal:host-gateway
 
